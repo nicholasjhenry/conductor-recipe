@@ -6,6 +6,7 @@ config :conductor_recipe, ConductorRecipe.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "conductor_recipe_dev",
+  port: String.to_integer(System.get_env("CONDUCTOR_PORT", "5432")),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,10 +17,14 @@ config :conductor_recipe, ConductorRecipe.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
+
+http_port = String.to_integer(System.get_env("CONDUCTOR_PORT", "4000"))
+http_port = if http_port == 4000, do: 4000, else: http_port + 1
+
 config :conductor_recipe, ConductorRecipeWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: String.to_integer(System.get_env("PORT") || "4000")],
+  http: [ip: {127, 0, 0, 1}, port: http_port],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
