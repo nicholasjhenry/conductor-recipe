@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+source ./script/sh/read_env
+
+eval "$(read_env)"
+
+if [ -z "${CONDUCTOR_WORKSPACE_NAME}" ]; then
+    COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME}"
+else
+    COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME}-${CONDUCTOR_WORKSPACE_NAME}"
+fi
+
+if [ "$1" = "up" ]; then
+    echo "==> Starting Docker Container…"
+    docker compose -p ${COMPOSE_PROJECT_NAME} up -d
+elif [ "$1" = "down" ]; then
+    echo "==> Remove Docker project…"
+    docker compose -p ${COMPOSE_PROJECT_NAME} down --volumes --remove-orphans
+else
+    echo "Usage: $0 {up|down}"
+    exit 1
+fi

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+script/docker up
+
+if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
+    brew bundle check >/dev/null 2>&1 || {
+        echo "==> Installing Homebrew dependencies…"
+        brew bundle
+    }
+fi
+
+echo "==> Installing Elixir/Erlang…"
+mise install

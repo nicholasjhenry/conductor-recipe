@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# script/setup: Set up application for the first time after cloning, or set it
+#               back to the initial first unused state.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+source ./script/sh/read_env
+script/bootstrap
+
+echo "==> Setting up project…"
+# Ensure new env based config options are compiled
+mix compile --force
+eval "$(read_env)" mix setup
+
+echo "==> The project is setup! 🚀 Is there demo data to load?"

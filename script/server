@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# script/server: Launch the application and any extra required processes
+#                locally.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+source ./script/sh/read_env
+
+# ensure everything in the app is up to date.
+script/update
+
+NODE_NAME=${CONDUCTOR_WORKSPACE_NAME:-test}
+
+# boot the app and any other necessary processes.
+script/docker up
+eval "$(read_env)" iex --name $NODE_NAME@127.0.0.1 --cookie mycookie -S mix phx.server
