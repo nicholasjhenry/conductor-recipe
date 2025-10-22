@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "setup": "script/worktree; script/setup",
+    "run": "script/server",
+    "archive": "script/archive"
+  }
+}
