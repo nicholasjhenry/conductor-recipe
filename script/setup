@@ -6,6 +6,7 @@
 set -e
 
 cd "$(dirname "$0")/.."
+eval "$(mise env)"
 
 script/bootstrap
 

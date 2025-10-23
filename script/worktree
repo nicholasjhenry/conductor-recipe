@@ -48,6 +48,7 @@ create_env_local() {
 
     cat >.env.local <<EOF
 COMPOSE_PROJECT_NAME=${compose_project_name}-${workspace_name}
+NODE_NAME=${workspace_name}
 DATABASE_PORT=${conductor_port}
 PORT=${port}
 EOF
@@ -59,8 +60,7 @@ symlink_if_exists .claude
 symlink_if_exists .env
 
 create_env_local
-
-mise trust
+mise trust --quiet
 
 echo "==> Copying deps…"
 cp -r ../../deps ./deps
