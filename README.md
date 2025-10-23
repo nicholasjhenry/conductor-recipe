@@ -33,7 +33,7 @@ This ensures workspaces don't conflict with each other.
 
 Since all resources are managed by Docker, tearing down a workspace is as simple as stopping and removing its containers.
 
-## Testing Locally
+## Local Demonstration
 
 You can test this setup outside of Conductor to see how it works:
 
@@ -55,3 +55,10 @@ You can test this setup outside of Conductor to see how it works:
     cd ../..
     unset CONDUCTOR_WORKSPACE_NAME CONDUCTOR_PORT
     git worktree remove .conductor/demo && git branch -D demo
+
+## Testing
+
+The above commands have been extracted into a single script for quick testing.
+
+    script/test setup
+    script/test archive
