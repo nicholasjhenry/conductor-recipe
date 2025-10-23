@@ -10,7 +10,7 @@ eval "$(mise env)"
 
 script/bootstrap
 
-docker compose up -d
+docker compose up -d --wait
 
 echo "==> Setting up project…"
 # Ensure new env based config options are compiled
