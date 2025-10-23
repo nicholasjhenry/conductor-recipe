@@ -11,7 +11,4 @@ cd "$(dirname "$0")/.."
 script/update
 
 NODE_NAME=${NODE_NAME:-test}
-
-# boot the app and any other necessary processes.
-script/docker up
 iex --name $NODE_NAME@127.0.0.1 --cookie mycookie -S mix phx.server
