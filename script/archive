@@ -8,5 +8,4 @@ cd "$(dirname "$0")/.."
 
 eval "$(mise env)"
 
-echo "==> Tearing down docker containers…"
 docker compose down --volumes --remove-orphans
