@@ -4,10 +4,6 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-source ./script/sh/read_env
-
-eval "$(read_env)"
-
 if [ -z "${CONDUCTOR_WORKSPACE_NAME}" ]; then
     COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME}"
 else

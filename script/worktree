@@ -17,8 +17,50 @@ symlink_if_exists() {
     fi
 }
 
+create_env_local() {
+    compose_project_name="${COMPOSE_PROJECT_NAME:-}"
+    workspace_name="${CONDUCTOR_WORKSPACE_NAME:-}"
+    conductor_port="${CONDUCTOR_PORT:-}"
+
+    if [ -z "$compose_project_name" ]; then
+        echo "==> COMPOSE_PROJECT_NAME not set, skipping .env.local."
+        return
+    fi
+
+    if [ -z "$workspace_name" ]; then
+        echo "==> CONDUCTOR_WORKSPACE_NAME not set, skipping .env.local."
+        return
+    fi
+
+    if [ -z "$conductor_port" ]; then
+        echo "==> CONDUCTOR_PORT not set, skipping .env.local."
+        return
+    fi
+
+    case "$conductor_port" in
+    *[!0-9]*)
+        echo "==> CONDUCTOR_PORT must be numeric, skipping .env.local."
+        return
+        ;;
+    esac
+
+    port=$((conductor_port + 1))
+
+    cat >.env.local <<EOF
+COMPOSE_PROJECT_NAME=${compose_project_name}-${workspace_name}
+DATABASE_PORT=${conductor_port}
+PORT=${port}
+EOF
+
+    echo "==> Wrote .env.local."
+}
+
 symlink_if_exists .claude
 symlink_if_exists .env
+
+create_env_local
+
+mise trust
 
 echo "==> Copying deps…"
 cp -r ../../deps ./deps
