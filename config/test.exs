@@ -10,7 +10,7 @@ config :conductor_recipe, ConductorRecipe.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "conductor_recipe_test#{System.get_env("MIX_TEST_PARTITION")}",
-  port: String.to_integer(System.get_env("CONDUCTOR_PORT", "5432")),
+  port: String.to_integer(System.get_env("DATABASE_PORT", "5432")),
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 

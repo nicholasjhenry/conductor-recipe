@@ -6,6 +6,6 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-source ./script/sh/read_env
+eval "$(mise env)"
 
-script/docker down
+docker compose down --volumes --remove-orphans
