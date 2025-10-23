@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# script/test: Test setup and archive of worktree.
+#              Run script/test for usage.
+
 set -e
 
 cd "$(dirname "$0")/.."
