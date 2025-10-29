@@ -60,9 +60,10 @@ symlink_if_exists .claude
 symlink_if_exists .env
 
 # Load existing .env first to generate .env.local
+mise trust --quiet
 eval $(mise env --quiet)
 create_env_local
-# Load existing .env first
+# Trust new .env.local
 mise trust --quiet
 
 echo "==> Copying deps…"

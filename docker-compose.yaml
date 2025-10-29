@@ -10,6 +10,12 @@ services:
       PGDATA: /pgdata
     volumes:
       - pgdata:/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
 volumes:
   pgdata: {}
