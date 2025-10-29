@@ -60,6 +60,7 @@ symlink_if_exists .claude
 symlink_if_exists .env
 
 # Load existing .env first to generate .env.local
+mise trust --quiet
 eval $(mise env --quiet)
 create_env_local
 # Trust new .env.local
